@@ -499,9 +499,15 @@
                 if (that.currentRequest) {
                     that.currentRequest.abort();
                 }
+
+                // FIXME: quick noparam hack
+                if (data['noparam']) {
+                    serviceUrl = serviceUrl + escape(data['noparam']);
+                }
+
                 that.currentRequest = $.ajax({
                     url: serviceUrl,
-                    data: data,
+                    data: data['noparam'] ? null : data,
                     type: options.type,
                     dataType: options.dataType
                 }).done(function (data) {
